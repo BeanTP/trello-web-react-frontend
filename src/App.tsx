@@ -3,10 +3,27 @@ import AccessAlarmIcon from '@mui/icons-material/AccessAlarm'
 import ThreeDRotation from '@mui/icons-material/ThreeDRotation'
 import HomeIcon from '@mui/icons-material/Home'
 import { pink } from '@mui/material/colors' 
+import { useColorScheme } from '@mui/material'
+
+const ModeToggle = () => {
+  const { mode, setMode } = useColorScheme()
+  if(!mode) {
+    return null
+  }
+  return (
+    <Button onClick={() => {
+      setMode(mode === 'light' ? 'dark' : 'light')
+    }}>
+      {mode === 'light' ? 'Turn dark' : 'Turn light'}
+    </Button>
+  );
+}
 
 function App() {
   return (
     <>
+      <ModeToggle />
+      <br />
       <div>haonamdev</div>
       <Button variant="text">Text</Button>
       <Button variant="contained">Contained</Button>
