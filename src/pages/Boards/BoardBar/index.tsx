@@ -32,7 +32,7 @@ function BoardBar() {
       px={2}
       sx={{
         width: "100%",
-        height: (theme) => theme.trello.broadBarHeight,
+        height: (theme) => theme.trello.boardBarHeight,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -95,7 +95,10 @@ function BoardBar() {
               width: 34,
               height: 34,
               fontSize: 16,
-              border: 'none'
+              border: 'none',
+              color: 'white',
+              cursor: 'pointer',
+              '&:first-of-type': { bgcolor: '#a4b0be' }
             },
           }}
         >

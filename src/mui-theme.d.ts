@@ -6,14 +6,16 @@ declare module "@mui/material/styles" {
   interface Theme {
     trello: {
       appBarHeight: string;
-      broadBarHeight: string;
+      boardBarHeight: string;
+      boardContentHeight: string;
     };
   }
   // Cho phép truyền vào khi createTheme(...)
   interface ThemeOptions {
     trello?: {
       appBarHeight?: string;
-      broadBarHeight?: string;
+      boardBarHeight?: string;
+      boardContentHeight?: string;
     };
   }
 }
