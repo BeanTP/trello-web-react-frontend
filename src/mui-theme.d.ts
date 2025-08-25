@@ -8,6 +8,8 @@ declare module "@mui/material/styles" {
       appBarHeight: string;
       boardBarHeight: string;
       boardContentHeight: string;
+      columnHeaderHeight: string;
+      columnFooterHeight: string;
     };
   }
   // Cho phép truyền vào khi createTheme(...)
@@ -16,6 +18,8 @@ declare module "@mui/material/styles" {
       appBarHeight?: string;
       boardBarHeight?: string;
       boardContentHeight?: string;
+      columnHeaderHeight?: string;
+      columnFooterHeight?: string;
     };
   }
 }
