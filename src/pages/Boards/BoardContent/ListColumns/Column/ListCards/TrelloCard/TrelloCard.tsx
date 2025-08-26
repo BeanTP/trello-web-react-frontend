@@ -2,29 +2,25 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import TempImg from "~/assets/img/Avatar.JPG";
 import GroupIcon from "@mui/icons-material/Group";
 import CommentIcon from "@mui/icons-material/Comment";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import type { CardTrello } from "~/types/types";
 
-function TrelloCard({ temporaryHiddenMedia }: { temporaryHiddenMedia?: boolean }) {
-  if(temporaryHiddenMedia){
+type CardProps = {
+  card?: CardTrello;
+};
+
+function TrelloCard({ card }: CardProps) {
+  const shouldShowCardActions = () => {
     return (
-      <Card
-        sx={{
-          cursor: "pointer",
-          boxShadow: "0 1px 1px rgba(0, 0, 0, 0.2)",
-          overflow: "unset",
-        }}
-      >
-        <CardContent sx={{ p: 1.5, "&:last-child": { p: 1.5 } }}>
-          <Typography>Card test 01</Typography>
-        </CardContent>
-      </Card>
+      !!card?.memberIds?.length ||
+      !!card?.comments?.length ||
+      !!card?.attachments?.length
     );
-  }
+  };
   return (
     <Card
       sx={{
@@ -33,21 +29,29 @@ function TrelloCard({ temporaryHiddenMedia }: { temporaryHiddenMedia?: boolean }
         overflow: "unset",
       }}
     >
-      <CardMedia sx={{ height: 140 }} image={TempImg} title="task" />
+      {card?.cover && <CardMedia sx={{ height: 140 }} image={card?.cover} />}
       <CardContent sx={{ p: 1.5, "&:last-child": { p: 1.5 } }}>
-        <Typography>HaoNamDev MERN Stack</Typography>
+        <Typography>{card?.title}</Typography>
       </CardContent>
-      <CardActions sx={{ p: "0 4px 8px 4px" }}>
-        <Button size="small" startIcon={<GroupIcon />}>
-          20
-        </Button>
-        <Button size="small" startIcon={<CommentIcon />}>
-          15
-        </Button>
-        <Button size="small" startIcon={<AttachmentIcon />}>
-          10
-        </Button>
-      </CardActions>
+      {shouldShowCardActions() && (
+        <CardActions sx={{ p: "0 4px 8px 4px" }}>
+          {!!card?.memberIds?.length && (
+            <Button size="small" startIcon={<GroupIcon />}>
+              {card?.memberIds?.length}
+            </Button>
+          )}
+          {!!card?.comments?.length && (
+            <Button size="small" startIcon={<CommentIcon />}>
+              {card?.comments?.length}
+            </Button>
+          )}
+          {!!card?.attachments?.length && (
+            <Button size="small" startIcon={<AttachmentIcon />}>
+              {card?.attachments?.length}
+            </Button>
+          )}
+        </CardActions>
+      )}
     </Card>
   );
 }

@@ -11,6 +11,8 @@ import Tooltip from "@mui/material/Tooltip";
 import AvatarImg from "~/assets/img/Avatar.JPG";
 import Button from "@mui/material/Button";
 import PersonAddIcon from "@mui/icons-material/PersonAdd"
+import type { Board } from "~/types/types";
+import { capitalizeFirstLetter } from "~/utils/fomatters";
 
 const MENU_STYLES = {
   color: "white",
@@ -26,7 +28,7 @@ const MENU_STYLES = {
   },
 };
 
-function BoardBar() {
+function BoardBar({ board }: { board?: Board }) {
   return (
     <Box
       px={2}
@@ -46,13 +48,13 @@ function BoardBar() {
         <Chip
           sx={MENU_STYLES}
           icon={<DashboardIcon />}
-          label="HaoNamDev MERN Stack Board"
+          label={board?.title}
           clickable
         />
         <Chip
           sx={MENU_STYLES}
           icon={<VPNLockIcon />}
-          label="Public/Private Workspace"
+          label={capitalizeFirstLetter(board?.type)}
           clickable
         />
         <Chip

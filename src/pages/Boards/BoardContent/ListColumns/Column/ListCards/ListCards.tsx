@@ -1,8 +1,13 @@
 import Box from "@mui/material/Box";
 import TrelloCard from "./TrelloCard/TrelloCard";
+import type { CardTrello } from "~/types/types";
 
-function ListCards() {
-	return (
+type ListCardsProp = {
+  cards?: CardTrello[];
+};
+
+function ListCards({ cards }: ListCardsProp) {
+  return (
     <Box
       sx={{
         p: "0 5px",
@@ -25,22 +30,11 @@ function ListCards() {
         },
       }}
     >
-      <TrelloCard />
-      <TrelloCard temporaryHiddenMedia />
-      <TrelloCard temporaryHiddenMedia />
-      <TrelloCard temporaryHiddenMedia />
-      <TrelloCard temporaryHiddenMedia />
-      <TrelloCard temporaryHiddenMedia />
-      <TrelloCard temporaryHiddenMedia />
-      <TrelloCard temporaryHiddenMedia />
-      <TrelloCard temporaryHiddenMedia />
-      <TrelloCard temporaryHiddenMedia />
-      <TrelloCard temporaryHiddenMedia />
-      <TrelloCard temporaryHiddenMedia />
-      <TrelloCard temporaryHiddenMedia />
-      <TrelloCard temporaryHiddenMedia />
+      {cards?.map((card) => (
+        <TrelloCard key={card._id} card={card} />
+      ))}
     </Box>
   );
 }
 
-export default ListCards
+export default ListCards;
