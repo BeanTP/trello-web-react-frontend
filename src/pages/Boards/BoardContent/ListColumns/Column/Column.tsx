@@ -20,12 +20,24 @@ import DragHandleIcon from "@mui/icons-material/DragHandle";
 import ListCards from "./ListCards/ListCards";
 import type { ColumnTrello } from "~/types/types";
 import { mapOrder } from "~/utils/sort";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 type ColumnProps = {
   column?: ColumnTrello;
 };
 
 function Column({ column }: ColumnProps) {
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
+      id: column?._id ?? "fallback-id",
+      data: { ...column },
+  });
+  const dndKitColumnStyles = {
+    // touchAction: 'none',
+    transform: CSS.Translate.toString(transform),
+    transition,
+  };
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -34,9 +46,13 @@ function Column({ column }: ColumnProps) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, "_id")
+  const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, "_id");
   return (
     <Box
+      ref={setNodeRef}
+      style={dndKitColumnStyles}
+      {...attributes}
+      {...listeners}
       sx={{
         minWidth: "300px",
         maxWidth: "300px",
